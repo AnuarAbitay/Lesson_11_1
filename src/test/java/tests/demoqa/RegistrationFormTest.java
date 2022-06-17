@@ -1,4 +1,4 @@
-package tests;
+package tests.demoqa;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.logevents.SelenideLogger;
@@ -35,17 +35,7 @@ public class RegistrationFormTest {
            dateOfBirth = String.format("%s %s,%s", birthDay, birthMonth, birthYear),
            stateCity = state + " " + city;
 
-    @BeforeAll
-    static void beforeAll() {
-        Configuration.baseUrl = "https://demoqa.com";
-        Configuration.browserSize = "1920x1080";
-        Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd/hub";
 
-        DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setCapability("enableVNC", true);
-        capabilities.setCapability("enableVideo", true);
-        Configuration.browserCapabilities = capabilities;
-    }
 
     @Test
     @DisplayName("Successful fill registration test")
@@ -77,15 +67,5 @@ public class RegistrationFormTest {
                             .checkResult("State and City", stateCity)
                             .close();
     }
-
-    @AfterEach
-    void addAttachments() {
-        Attach.screenshotAs("Last screenshot");
-        Attach.pageSource();
-        Attach.browserConsoleLogs();
-        Attach.addVideo();
-        closeWebDriver();
-    }
-
 }
 
